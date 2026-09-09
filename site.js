@@ -1,0 +1,1 @@
+(function(){var select=document.getElementById('class-interest');if(!select)return;var requestedClass=new URLSearchParams(window.location.search).get('class');if(requestedClass&&Array.from(select.options).some(function(option){return option.value===requestedClass;})){select.value=requestedClass;}}());
