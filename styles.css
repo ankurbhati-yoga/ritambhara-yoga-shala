@@ -327,11 +327,11 @@ form .button { margin-top: 12px; cursor: pointer; }
 .class-hero h1 { max-width: 1080px; font-size: clamp(3.8rem, 6.8vw, 7.5rem); }
 .class-hero h1 em { display: block; }
 .class-hero .lead { margin: 32px 0 0; color: rgba(255, 250, 241, 0.68); }
-.class-hero-media { height: min(760px, 66vw); min-height: 0; margin: 0; overflow: hidden; }
+.class-hero-media { height: min(700px, 52vw); min-height: 0; margin: 0; overflow: hidden; }
 .class-hero-media img { height: 100%; min-height: 0; object-fit: cover; }
 .ashtanga-hero { background: var(--sand); color: var(--forest); }
 .ashtanga-hero .class-hero-media { background: var(--charcoal); }
-.ashtanga-hero .class-hero-media img { object-position: center; }
+.ashtanga-hero .class-hero-media img { object-position: center 68%; }
 .ashtanga-hero .lead { color: rgba(39, 53, 31, 0.72); }
 .prana-hero { background: var(--olive); }
 .prana-hero .class-hero-media img { object-position: center 51%; }
@@ -393,7 +393,7 @@ form .button { margin-top: 12px; cursor: pointer; }
 .registration-hero-copy { width: var(--page); margin-inline: auto; padding: clamp(78px, 9vw, 128px) 0; }
 .registration-hero h1 { font-size: clamp(3.6rem, 6vw, 6.6rem); }
 .registration-hero .lead { margin-top: 28px; color: rgba(255,250,241,.68); }
-.registration-hero figure { height: min(650px, 66vw); min-height: 0; margin: 0; overflow: hidden; }
+.registration-hero figure { height: min(650px, 52vw); min-height: 0; margin: 0; overflow: hidden; }
 .registration-hero img { height: 100%; min-height: 0; object-fit: cover; object-position: center; }
 .registration-form { max-width: 930px; }
 .registration-form form { margin-top: 60px; }
