@@ -3,10 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.google.com https://maps.google.com; form-action https://formsubmit.co; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
   <title>Register for Classes | Ritambhara Yoga Shala</title>
   <meta name="description" content="Register your interest in Ashtanga Vinyasa, Prana Urja pranayama or live online yoga classes with Ritambhara Yoga Shala.">
   <link rel="icon" href="assets/favicon.jpg" type="image/jpeg">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20261117">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,15 +31,16 @@
     <section class="registration-hero">
       <div class="registration-hero-copy">
         <p class="eyebrow">Registration</p>
-        <h1>Tell us where your practice <em>begins.</em></h1>
-        <p class="lead">Share a few details below. Ankur will reply personally with availability and the next step.</p>
+        <h1>Find your class. <em>Begin your practice.</em></h1>
+        <p class="lead">Choose your class and share your details. Ankur will reply personally with availability, fees and joining instructions. This form registers your interest; it does not take payment or confirm a place.</p>
       </div>
-      <figure><img src="assets/waterside-prayer.jpg" width="2200" height="1467" alt="Ankur Bhati seated in prayer beside still water" fetchpriority="high"></figure>
+      <figure><img src="assets/teacher-portrait.jpg" width="2200" height="1467" alt="Ankur Bhati seated in the courtyard at Ritambhara Yoga Shala" fetchpriority="high"></figure>
     </section>
 
     <section class="section registration-form" aria-labelledby="registration-title">
       <p class="section-index">Class enquiry</p>
       <h2 id="registration-title">Begin with a <em>conversation.</em></h2>
+      <p class="registration-schedule"><strong>Morning Online Yoga</strong><br>Monday, Wednesday &amp; Friday · 5:15–6:00 AM IST<br>45 minutes · Beginner-friendly</p>
       <form action="https://formsubmit.co/ankurbhati@gmail.com" method="post">
         <input type="hidden" name="_subject" value="New class registration — Ritambhara Yoga Shala">
         <input type="hidden" name="_template" value="table">
@@ -54,14 +57,15 @@
               <option value="">Select a class</option>
               <option value="ashtanga">Ashtanga Vinyasa — Mysore Style, Gokulam</option>
               <option value="prana-urja">Prana Urja — Mysore or online</option>
-              <option value="online-yoga">Online Yoga — Monday, Wednesday, Friday</option>
+              <option value="morning-online-yoga">Morning Online Yoga — Mon, Wed, Fri · 5:15–6:00 AM IST</option>
+              <option value="online-yoga">Evening Online Yoga — Mon, Wed, Fri · 5:30–6:45 PM IST</option>
               <option value="prana-urja-online">Prana Urja — Online, Monday to Friday</option>
             </select>
           </div>
           <div class="form-field full"><label for="experience">Yoga experience</label><textarea id="experience" name="Yoga experience" placeholder="Tell us briefly about your current or previous practice."></textarea></div>
-          <div class="form-field full"><label for="student-message">Anything Ankur should know?</label><textarea id="student-message" name="Notes" placeholder="You may include injuries, health considerations, goals or questions."></textarea></div>
-          <button class="button" type="submit">Send registration</button>
-          <p class="form-note">Your information is sent directly to ankurbhati@gmail.com and used only to respond to this enquiry.</p>
+          <div class="form-field full"><label for="student-message">Anything Ankur should know?</label><textarea id="student-message" name="Notes" placeholder="Share your goals or questions. Please discuss medical details directly with Ankur."></textarea></div>
+          <button class="button" type="submit">Send registration enquiry</button>
+          <p class="form-note">Your enquiry is processed by FormSubmit and emailed to ankurbhati@gmail.com. Your details are used to respond to this enquiry. Please keep sensitive health information for a private conversation.</p>
         </div>
       </form>
     </section>
@@ -69,12 +73,12 @@
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <div class="footer-intro"><img class="footer-brand" src="assets/logo-horizontal-light.png" alt="Ritambhara Yoga Shala"><p>Traditional Ashtanga Vinyasa, pranayama and online yoga with Ankur Bhati.</p></div>
+      <div class="footer-intro"><img class="footer-brand" src="assets/logo-horizontal.png" alt="Ritambhara Yoga Shala"><p>Traditional Ashtanga Vinyasa, pranayama and online yoga with Ankur Bhati.</p></div>
       <div class="footer-links"><strong>Practice</strong><a href="ashtanga-vinyasa.html">Ashtanga Vinyasa</a><a href="prana-urja.html">Prana Urja</a><a href="online-classes.html">Online Classes</a></div>
       <div class="footer-links"><strong>Connect</strong><a href="tel:+919828067272">+91 98280 67272</a><a href="mailto:ankurbhati@gmail.com">ankurbhati@gmail.com</a><a href="index.html#contact">Contact</a></div>
     </div>
     <p class="copyright">© 2026 Ritambhara Yoga Shala · Gokulam, Mysore</p>
   </footer>
-  <script src="site.js"></script>
+  <script src="site.js?v=20261117"></script>
 </body>
 </html>
