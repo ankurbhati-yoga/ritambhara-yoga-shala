@@ -23,6 +23,10 @@
       link.addEventListener('click', closeMenu);
     });
 
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && nav.classList.contains('is-open')) { closeMenu(); toggle.focus(); }
+    });
+
     window.addEventListener('resize', function () {
       if (window.innerWidth > 820) closeMenu();
     });
