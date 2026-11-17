@@ -822,3 +822,15 @@ html { scroll-padding-top:112px; }
  .schedule-details .schedule-time dd,.online-schedule .session-time { font-size:1.5rem; }
  .teacher-story-copy h2 { font-size:clamp(1.9rem,7vw,2.5rem); }
 }
+/* Full portrait photographs and calm, high-contrast registration bands */
+.online-photo-pair { width:min(1000px,var(--page)); gap:clamp(16px,3vw,36px); }
+.online-photo-pair figure:first-child,.online-photo-pair figure:last-child { aspect-ratio:2/3; }
+.online-photo-pair img { display:block; width:100%; height:100%; object-fit:cover; background:transparent; }
+.online-photo-pair figure:first-child img { object-position:50% 80%; }
+.online-photo-pair figure:last-child img { object-position:50% 40%; }
+.register-band { background:#29332f; color:#f7f7f2; }
+.register-band h2 { color:#f7f7f2; }
+.register-band h2 em { color:#dce7dd; }
+.register-band .button { background:#f7f7f2; border-color:#f7f7f2; color:#29332f; }
+.register-band .button:hover { background:#dce7dd; border-color:#dce7dd; color:#29332f; }
+.register-band .button:focus-visible { outline:2px solid #f7f7f2; outline-offset:5px; }
