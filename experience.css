@@ -27,6 +27,7 @@
 .finder-fields { display:grid; gap:24px; min-width:0; }
 .finder-fields label,.breath-settings label { display:block; font-size:.94rem; font-weight:500; line-height:1.5; margin-bottom:9px; }
 .finder-fields select,.breath-settings select { width:100%; min-height:48px; padding:12px 38px 12px 14px; border:1px solid #738277; border-radius:0; background-color:#f7f7f2; color:#29332f; font-size:1rem; }
+.finder-fields select,.breath-settings select { appearance:none; background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%); background-position:calc(100% - 20px) 50%,calc(100% - 15px) 50%; background-size:5px 5px; background-repeat:no-repeat; }
 .finder-pair { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
 .finder-pair > div { min-width:0; }
 .finder-result { border-block:1px solid var(--line); padding:24px 0; }

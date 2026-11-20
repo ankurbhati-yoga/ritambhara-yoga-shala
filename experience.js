@@ -98,18 +98,34 @@
       var audienceMap = {team:'Whole team / mixed roles', leaders:'People managers / team leaders', mixed:'Other / mixed audience'};
       var formatMap = {unsure:'Please advise', single:'Single session', workshop:'Workshop / wellbeing day', series:'Recurring programme'};
       var checkboxMap = {movement:'focus-0', breath:'focus-1', rest:'focus-3'};
-      document.getElementById('corporate-audience').value = audienceMap[audience.value];
-      document.getElementById('corporate-format').value = formatMap[format.value];
-      if (checkboxMap[focus.value]) document.getElementById(checkboxMap[focus.value]).checked = true;
+      function selectChoice(id, value) {
+        var select = document.getElementById(id);
+        select.value = value;
+        Array.from(select.options).forEach(function (option) {
+          option.selected = option.value === value;
+          if (option.selected) option.setAttribute('selected', '');
+          else option.removeAttribute('selected');
+        });
+        select.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+      selectChoice('corporate-audience', audienceMap[audience.value]);
+      selectChoice('corporate-format', formatMap[format.value]);
+      if (checkboxMap[focus.value]) {
+        var chosenFocus = document.getElementById(checkboxMap[focus.value]);
+        chosenFocus.checked = true;
+        chosenFocus.setAttribute('checked', '');
+        chosenFocus.dispatchEvent(new Event('change', {bubbles:true}));
+      }
       var brief = 'Programme starting point: ' + recommendations[focus.value][0] + '. Audience: ' + audience.options[audience.selectedIndex].text + '. Format: ' + format.options[format.selectedIndex].text + '.';
       var goals = document.getElementById('corporate-goals');
       // Preserve anything the visitor has already written.
       if (goals.dataset.finderBrief) goals.value = goals.value.replace(goals.dataset.finderBrief, '').trim();
       goals.value = (goals.value.trim() ? goals.value.trim() + '\n\n' : '') + brief;
+      goals.defaultValue = goals.value;
       goals.dataset.finderBrief = brief;
       goals.dispatchEvent(new Event('input', {bubbles:true}));
       var carried = document.getElementById('programme-carried');
-      carried.textContent = 'Your starting point has been added below. You can edit it before sending.';
+      carried.textContent = brief + ' You can edit this in the form below.';
       carried.hidden = false;
       document.getElementById('corporate-enquiry').scrollIntoView({behavior:motion.matches ? 'instant' : 'smooth', block:'start'});
       document.getElementById('corporate-name').focus({preventScroll:true});
