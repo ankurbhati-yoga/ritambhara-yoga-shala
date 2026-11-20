@@ -24,7 +24,7 @@
         nav.hidden = true;
         if (backdrop) backdrop.hidden = true;
       }
-    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 280);
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 420);
   }
 
   function openMenu() {
@@ -104,12 +104,35 @@
   if (!form) return;
   var error = document.getElementById('corporate-form-error');
   var goals = document.getElementById('corporate-goals');
+  function validEnquiry() {
+    goals.setCustomValidity(goals.value.trim() ? '' : 'Please describe what would make this useful for your team.');
+    return form.checkValidity();
+  }
+  function showValidation() {
+    error.hidden = false;
+    error.textContent = 'Please complete the required fields before sending your enquiry.';
+    var firstInvalid = form.querySelector(':invalid');
+    if (firstInvalid) {
+      firstInvalid.setAttribute('aria-invalid', 'true');
+      firstInvalid.focus();
+    }
+    form.reportValidity();
+  }
+  form.addEventListener('invalid', function () {
+    error.hidden = false;
+    error.textContent = 'Please complete the required fields before sending your enquiry.';
+  }, true);
+  form.addEventListener('input', function (event) {
+    if (event.target === goals) goals.setCustomValidity('');
+    if (event.target.validity && event.target.validity.valid) event.target.removeAttribute('aria-invalid');
+  });
+  form.querySelector('button[type="submit"]').addEventListener('click', function (event) {
+    if (!validEnquiry()) { event.preventDefault(); showValidation(); }
+  });
   form.addEventListener('submit', function (event) {
-    if (!goals.value.trim()) {
+    if (!validEnquiry()) {
       event.preventDefault();
-      error.hidden = false;
-      error.textContent = 'Please describe what would make this useful for your team.';
-      goals.focus();
+      showValidation();
     } else error.hidden = true;
   });
 }());
