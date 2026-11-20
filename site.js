@@ -1,45 +1,117 @@
 (function () {
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.getElementById('site-nav');
+  var backdrop = document.querySelector('.nav-backdrop');
+  var menuLabel = toggle && toggle.querySelector('.menu-label');
+  var closeTimer = 0;
+  var openingFrame = 0;
+  var pageContent = Array.from(document.querySelectorAll('main, .site-footer'));
 
-  function closeMenu() {
+  function closeMenu(restoreFocus) {
     if (!toggle || !nav) return;
+    cancelAnimationFrame(openingFrame);
     nav.classList.remove('is-open');
+    if (backdrop) backdrop.classList.remove('is-open');
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.textContent = 'Menu';
+    if (menuLabel) menuLabel.textContent = 'Menu';
     document.body.classList.remove('nav-open');
+    pageContent.forEach(function (el) { el.inert = false; });
+    if (restoreFocus) toggle.focus();
+    nav.inert = true;
+    clearTimeout(closeTimer);
+    closeTimer = setTimeout(function () {
+      if (toggle.getAttribute('aria-expanded') === 'false') {
+        nav.hidden = true;
+        if (backdrop) backdrop.hidden = true;
+      }
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 280);
+  }
+
+  function openMenu() {
+    clearTimeout(closeTimer);
+    nav.hidden = false;
+    nav.inert = false;
+    if (backdrop) backdrop.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+    if (menuLabel) menuLabel.textContent = 'Close';
+    document.body.classList.add('nav-open');
+    pageContent.forEach(function (el) { el.inert = true; });
+    openingFrame = requestAnimationFrame(function () {
+      openingFrame = requestAnimationFrame(function () {
+        if (toggle.getAttribute('aria-expanded') !== 'true') return;
+        nav.classList.add('is-open');
+        if (backdrop) backdrop.classList.add('is-open');
+        nav.querySelector('a').focus();
+      });
+    });
   }
 
   if (toggle && nav) {
+    nav.inert = true;
     toggle.addEventListener('click', function () {
-      var willOpen = !nav.classList.contains('is-open');
-      nav.classList.toggle('is-open', willOpen);
-      toggle.setAttribute('aria-expanded', String(willOpen));
-      toggle.textContent = willOpen ? 'Close' : 'Menu';
-      document.body.classList.toggle('nav-open', willOpen);
+      if (toggle.getAttribute('aria-expanded') === 'true') closeMenu(true);
+      else openMenu();
     });
 
     nav.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', closeMenu);
+      link.addEventListener('click', function () { closeMenu(true); });
     });
+    if (backdrop) backdrop.addEventListener('click', function () { closeMenu(true); });
 
     document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && nav.classList.contains('is-open')) { closeMenu(); toggle.focus(); }
-    });
-
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 820) closeMenu();
+      if (toggle.getAttribute('aria-expanded') !== 'true') return;
+      if (event.key === 'Escape') { event.preventDefault(); closeMenu(true); }
+      if (event.key === 'Tab') {
+        var focusables = [toggle].concat(Array.from(nav.querySelectorAll('a')));
+        var current = focusables.indexOf(document.activeElement);
+        var target = event.shiftKey ? current - 1 : current + 1;
+        event.preventDefault();
+        focusables[(target + focusables.length) % focusables.length].focus();
+      }
     });
   }
 
   var select = document.getElementById('class-interest');
   if (select) {
     var requestedClass = new URLSearchParams(window.location.search).get('class');
+    var requestedOnlinePranayama = requestedClass === 'prana-urja-online';
+    if (requestedOnlinePranayama) requestedClass = 'prana-urja';
     var optionExists = Array.from(select.options).some(function (option) {
       return option.value === requestedClass;
     });
     if (requestedClass && optionExists) select.value = requestedClass;
+    var attendance = document.getElementById('attendance');
+    var attendanceHelp = document.getElementById('attendance-help');
+    if (attendance) {
+      function updateAttendance() {
+        var onlineOnly = select.value === 'morning-online-yoga' || select.value === 'online-yoga';
+        var inPersonOnly = select.value === 'ashtanga';
+        attendance.querySelector('option[value="mysore"]').disabled = onlineOnly;
+        attendance.querySelector('option[value="online"]').disabled = inPersonOnly;
+        if (onlineOnly) attendance.value = 'online';
+        else if (inPersonOnly) attendance.value = 'mysore';
+        if (attendanceHelp) attendanceHelp.textContent = onlineOnly ? 'This class is taught live online.' : inPersonOnly ? 'Mysore-style Ashtanga is taught in person in Gokulam, Mysore.' : 'Prana Urja and private teaching are available in Mysore or live online.';
+      }
+      if (requestedOnlinePranayama) attendance.value = 'online';
+      updateAttendance();
+      select.addEventListener('change', updateAttendance);
+    }
   }
+}());
+
+(function () {
+  var form = document.querySelector('.corporate-enquiry form');
+  if (!form) return;
+  var error = document.getElementById('corporate-form-error');
+  var goals = document.getElementById('corporate-goals');
+  form.addEventListener('submit', function (event) {
+    if (!goals.value.trim()) {
+      event.preventDefault();
+      error.hidden = false;
+      error.textContent = 'Please describe what would make this useful for your team.';
+      goals.focus();
+    } else error.hidden = true;
+  });
 }());
 
 (function () {

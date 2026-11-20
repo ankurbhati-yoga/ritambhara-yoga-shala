@@ -17,21 +17,27 @@
   <meta property="og:image:alt" content="Ankur Bhati practising pranayama">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/favicon.jpg" type="image/jpeg">
-  <link rel="stylesheet" href="styles.css?v=20261117j">
+  <link rel="stylesheet" href="styles.css?v=20261120a">
+  <link rel="stylesheet" href="refinements.css?v=20261120a">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Ritambhara Yoga Shala home"><img src="assets/logo-horizontal.png" alt="Ritambhara Yoga Shala"></a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="ashtanga-vinyasa.html">Ashtanga</a>
-        <a href="prana-urja.html">Prana Urja</a>
-        <a href="online-classes.html">Online</a>
-        <a href="yoga-nidra.html">Yoga Nidra</a><a href="index.html#contact">Contact</a>
-        <a class="nav-register" href="register.html" aria-current="page">Join a class</a>
+      <div class="header-actions"><a class="header-enquiry" href="register.html">Enquire</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="menu-label">Menu</span><span class="menu-mark" aria-hidden="true"><i></i><i></i></span></button></div>
+      <div class="nav-backdrop" aria-hidden="true" hidden></div>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation" hidden>
+        <div class="nav-panel-heading"><span>Ritambhara Yoga Shala</span><span>Mysore &amp; online</span></div>
+        <div class="nav-group"><p class="nav-group-label">Explore</p><a href="index.html">Home</a>
+<a href="ashtanga-vinyasa.html">Mysore-style Ashtanga</a>
+<a href="prana-urja.html">Prana Urja · Pranayama</a>
+<a href="online-classes.html">Online yoga</a>
+<a href="yoga-nidra.html">Yoga Nidra</a>
+<a href="private-classes.html">Private one-to-one</a>
+<a href="corporate-yoga.html">For organisations</a></div>
+        <div class="nav-secondary"><a href="index.html#teacher-title">Meet Ankur</a><a href="index.html#contact">Contact &amp; location</a><a class="nav-register" href="register.html">Ask about a class</a></div>
+        <div class="nav-contact"><a href="tel:+919828067272">+91 98280 67272</a><span>Personal guidance. A considered practice.</span></div>
       </nav>
     </div>
   </header>
@@ -54,7 +60,7 @@
         <input type="hidden" name="_subject" value="New class enquiry - Ritambhara Yoga Shala">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_next" value="https://ritambharayogashala.com/thank-you.html">
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" hidden aria-hidden="true">
         <div class="form-grid">
           <div class="form-field"><label for="student-name">Name</label><input id="student-name" name="Name" autocomplete="name" required></div>
           <div class="form-field"><label for="student-email">Email</label><input id="student-email" name="email" type="email" autocomplete="email" required></div>
@@ -63,16 +69,10 @@
           <div class="form-field full">
             <label for="class-interest">Class</label>
             <select id="class-interest" name="Class" required>
-              <option value="">Select a class</option>
-              <option value="ashtanga">Ashtanga Vinyasa — Mysore Style, Gokulam</option>
-              <option value="prana-urja">Prana Urja — Mysore or online</option>
-              <option value="yoga-nidra">Yoga Nidra — enquire about sessions</option>
-              <option value="morning-online-yoga">Morning Online Yoga — Mon, Wed, Fri · 5:15–6:00 AM IST</option>
-              
-              <option value="online-yoga">Evening Online Yoga — Mon, Wed, Fri · 5:30–6:45 PM IST</option>
-              <option value="prana-urja-online">Prana Urja — Online, Monday to Friday</option>
+              <option value="">Select a class</option><option value="ashtanga">Ashtanga Vinyasa — Mysore Style</option><option value="prana-urja">Prana Urja — Pranayama</option><option value="morning-online-yoga">Morning Online Yoga — Mon, Wed, Fri · 5:15–6:00 AM IST</option><option value="online-yoga">Evening Online Yoga — Mon, Wed, Fri · 5:30–6:45 PM IST</option><option value="yoga-nidra">Yoga Nidra — Guided rest</option><option value="private">Private one-to-one yoga</option>
             </select>
           </div>
+          <div class="form-field full"><label for="attendance">How would you like to attend?</label><select id="attendance" name="Attendance preference"><option value="">Please select</option><option value="mysore">In person — Mysore</option><option value="online">Live online</option><option value="discuss">I would like to discuss this</option></select><p class="field-hint" id="attendance-help">Prana Urja and private teaching are available in Mysore or online. Mysore-style Ashtanga is taught at the shala.</p></div>
           <div class="form-field full"><label for="experience">Yoga experience</label><textarea id="experience" name="Yoga experience" placeholder="Tell us briefly about your current or previous practice."></textarea></div>
           <div class="form-field full"><label for="student-message">Questions or goals</label><textarea id="student-message" name="Notes" placeholder="Share your goals or questions. Please discuss medical details directly with Ankur."></textarea></div>
           <button class="button" type="submit">Send class enquiry</button>
@@ -85,11 +85,11 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-intro"><img class="footer-brand" src="assets/logo-horizontal.png" alt="Ritambhara Yoga Shala"><p>Traditional Ashtanga Vinyasa, pranayama and online yoga with Ankur Bhati.</p></div>
-      <div class="footer-links"><strong>Practice</strong><a href="ashtanga-vinyasa.html">Ashtanga Vinyasa</a><a href="prana-urja.html">Prana Urja</a><a href="online-classes.html">Online Classes</a></div>
+      <div class="footer-links"><strong>Practice</strong><a href="ashtanga-vinyasa.html">Ashtanga Vinyasa</a><a href="prana-urja.html">Prana Urja</a><a href="yoga-nidra.html">Yoga Nidra</a><a href="online-classes.html">Online Classes</a><a href="private-classes.html">Private One-to-One</a><a href="corporate-yoga.html">Corporate Programmes</a></div>
       <div class="footer-links"><strong>Connect</strong><a href="tel:+919828067272">+91 98280 67272</a><a href="mailto:ankurbhati@gmail.com">ankurbhati@gmail.com</a><a href="index.html#contact">Contact</a></div>
     </div>
     <p class="copyright">© 2026 Ritambhara Yoga Shala · Gokulam, Mysore</p>
   </footer>
-  <script src="site.js?v=20261117i"></script>
+  <script src="site.js?v=20261120a"></script>
 </body>
 </html>
