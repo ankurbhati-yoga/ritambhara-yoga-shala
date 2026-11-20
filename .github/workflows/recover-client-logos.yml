@@ -1,0 +1,33 @@
+name: Recover original client logos
+on:
+  push:
+    paths:
+      - '.github/workflows/recover-client-logos.yml'
+permissions:
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read public original logo assets
+        shell: python
+        run: |
+          import base64, concurrent.futures, json, urllib.request
+          clients = json.loads("[{\"name\":\"Bank of Baroda\",\"file\":\"BankOfBarodaLogo.svg.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/BankOfBarodaLogo.svg.png\"},{\"name\":\"DCM Shriram\",\"file\":\"dcm-shriram-ltd-e1743595571999.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/dcm-shriram-ltd-e1743595571999.png\"},{\"name\":\"GHCL\",\"file\":\"ghcl-limited.webp\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/ghcl-limited.webp\"},{\"name\":\"HDFC Bank\",\"file\":\"HDFC-Bank-logo.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/HDFC-Bank-logo.png\"},{\"name\":\"HMEL\",\"file\":\"hmel.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/hmel.png\"},{\"name\":\"India1\",\"file\":\"india1logo.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/india1logo.png\"},{\"name\":\"Lions Clubs International\",\"file\":\"Lions_Clubs_International.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/Lions_Clubs_International.png\"},{\"name\":\"Société Générale\",\"file\":\"logo-societe-generale.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/logo-societe-generale.png\"},{\"name\":\"Radico\",\"file\":\"RADICO.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/RADICO.png\"},{\"name\":\"RSPL\",\"file\":\"rspl-logo.jpg\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/rspl-logo.jpg\"},{\"name\":\"Sightsavers\",\"file\":\"sightsavers.webp\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/sightsavers.webp\"},{\"name\":\"Spectra\",\"file\":\"Spectra.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/Spectra.png\"},{\"name\":\"Star Consulting Global\",\"file\":\"star-consulting-global.jpg\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/star-consulting-global.jpg\"},{\"name\":\"Takeda\",\"file\":\"Takeda_Pharmaceutical.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/Takeda_Pharmaceutical.png\"},{\"name\":\"Zydus Lifesciences\",\"file\":\"zydus_life_logo.png\",\"source\":\"https://ankurbhatiyoga.com/wp-content/uploads/2025/04/zydus_life_logo.png\"}]")
+          def recover(c):
+              try:
+                  req = urllib.request.Request(c['source'], headers={'User-Agent': 'Mozilla/5.0'})
+                  with urllib.request.urlopen(req, timeout=25) as r:
+                      data = r.read(5 * 1024 * 1024 + 1)
+                      mime = r.headers.get_content_type()
+                  valid = data[:4].hex() == '89504e47' or data[:3].hex() == 'ffd8ff' or (data[:4] == b'RIFF' and data[8:12] == b'WEBP')
+                  if not valid or len(data) > 5 * 1024 * 1024:
+                      raise ValueError('Not a supported original image: ' + mime)
+                  return 'RYS_LOGO_JSON=' + json.dumps({'file': c['file'], 'name': c['name'], 'content': base64.b64encode(data).decode(), 'mime': mime})
+              except Exception as e:
+                  return 'RYS_LOGO_ERROR=' + json.dumps({'name': c['name'], 'error': str(e)})
+          with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+              for result in pool.map(recover, clients):
+                  print(result, flush=True)
+          
